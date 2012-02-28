@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "NGVolumeControlViewController.h"
 
 @implementation AppDelegate
 
@@ -16,6 +17,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    NGVolumeControlViewController *viewController = [[NGVolumeControlViewController alloc] initWithNibName:nil bundle:nil];
+    self.window.rootViewController = viewController;
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
