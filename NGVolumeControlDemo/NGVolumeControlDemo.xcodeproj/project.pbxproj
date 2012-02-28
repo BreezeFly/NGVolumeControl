@@ -1,0 +1,322 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9BCC747F14FCD01E004F30FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCC747E14FCD01E004F30FF /* UIKit.framework */; };
+		9BCC748114FCD01E004F30FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCC748014FCD01E004F30FF /* Foundation.framework */; };
+		9BCC748314FCD01E004F30FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCC748214FCD01E004F30FF /* CoreGraphics.framework */; };
+		9BCC748914FCD01E004F30FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BCC748714FCD01E004F30FF /* InfoPlist.strings */; };
+		9BCC748B14FCD01E004F30FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCC748A14FCD01E004F30FF /* main.m */; };
+		9BCC748F14FCD01E004F30FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCC748E14FCD01E004F30FF /* AppDelegate.m */; };
+		9BCC74A014FCD042004F30FF /* libNGVolumeControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCC749D14FCD02E004F30FF /* libNGVolumeControl.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9BCC749C14FCD02E004F30FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BCC749514FCD02E004F30FF /* NGVolumeControl.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9BCC745F14FCCE8D004F30FF;
+			remoteInfo = NGVolumeControl;
+		};
+		9BCC749E14FCD03C004F30FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BCC749514FCD02E004F30FF /* NGVolumeControl.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9BCC745E14FCCE8D004F30FF;
+			remoteInfo = NGVolumeControl;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9BCC747A14FCD01E004F30FF /* NGVolumeControlDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NGVolumeControlDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BCC747E14FCD01E004F30FF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9BCC748014FCD01E004F30FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9BCC748214FCD01E004F30FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9BCC748614FCD01E004F30FF /* NGVolumeControlDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NGVolumeControlDemo-Info.plist"; sourceTree = "<group>"; };
+		9BCC748814FCD01E004F30FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9BCC748A14FCD01E004F30FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9BCC748C14FCD01E004F30FF /* NGVolumeControlDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NGVolumeControlDemo-Prefix.pch"; sourceTree = "<group>"; };
+		9BCC748D14FCD01E004F30FF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9BCC748E14FCD01E004F30FF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9BCC749514FCD02E004F30FF /* NGVolumeControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NGVolumeControl.xcodeproj; path = ../NGVolumeControl/NGVolumeControl.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9BCC747714FCD01E004F30FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BCC74A014FCD042004F30FF /* libNGVolumeControl.a in Frameworks */,
+				9BCC747F14FCD01E004F30FF /* UIKit.framework in Frameworks */,
+				9BCC748114FCD01E004F30FF /* Foundation.framework in Frameworks */,
+				9BCC748314FCD01E004F30FF /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9BCC746F14FCD01E004F30FF = {
+			isa = PBXGroup;
+			children = (
+				9BCC748414FCD01E004F30FF /* NGVolumeControlDemo */,
+				9BCC747D14FCD01E004F30FF /* Frameworks */,
+				9BCC747B14FCD01E004F30FF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9BCC747B14FCD01E004F30FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9BCC747A14FCD01E004F30FF /* NGVolumeControlDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9BCC747D14FCD01E004F30FF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BCC749514FCD02E004F30FF /* NGVolumeControl.xcodeproj */,
+				9BCC747E14FCD01E004F30FF /* UIKit.framework */,
+				9BCC748014FCD01E004F30FF /* Foundation.framework */,
+				9BCC748214FCD01E004F30FF /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9BCC748414FCD01E004F30FF /* NGVolumeControlDemo */ = {
+			isa = PBXGroup;
+			children = (
+				9BCC748D14FCD01E004F30FF /* AppDelegate.h */,
+				9BCC748E14FCD01E004F30FF /* AppDelegate.m */,
+				9BCC748514FCD01E004F30FF /* Supporting Files */,
+			);
+			path = NGVolumeControlDemo;
+			sourceTree = "<group>";
+		};
+		9BCC748514FCD01E004F30FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9BCC748614FCD01E004F30FF /* NGVolumeControlDemo-Info.plist */,
+				9BCC748714FCD01E004F30FF /* InfoPlist.strings */,
+				9BCC748A14FCD01E004F30FF /* main.m */,
+				9BCC748C14FCD01E004F30FF /* NGVolumeControlDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9BCC749614FCD02E004F30FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9BCC749D14FCD02E004F30FF /* libNGVolumeControl.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9BCC747914FCD01E004F30FF /* NGVolumeControlDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BCC749214FCD01E004F30FF /* Build configuration list for PBXNativeTarget "NGVolumeControlDemo" */;
+			buildPhases = (
+				9BCC747614FCD01E004F30FF /* Sources */,
+				9BCC747714FCD01E004F30FF /* Frameworks */,
+				9BCC747814FCD01E004F30FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9BCC749F14FCD03C004F30FF /* PBXTargetDependency */,
+			);
+			name = NGVolumeControlDemo;
+			productName = NGVolumeControlDemo;
+			productReference = 9BCC747A14FCD01E004F30FF /* NGVolumeControlDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9BCC747114FCD01E004F30FF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "NOUS Wissensmanagement GmbH";
+			};
+			buildConfigurationList = 9BCC747414FCD01E004F30FF /* Build configuration list for PBXProject "NGVolumeControlDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9BCC746F14FCD01E004F30FF;
+			productRefGroup = 9BCC747B14FCD01E004F30FF /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9BCC749614FCD02E004F30FF /* Products */;
+					ProjectRef = 9BCC749514FCD02E004F30FF /* NGVolumeControl.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				9BCC747914FCD01E004F30FF /* NGVolumeControlDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9BCC749D14FCD02E004F30FF /* libNGVolumeControl.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libNGVolumeControl.a;
+			remoteRef = 9BCC749C14FCD02E004F30FF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9BCC747814FCD01E004F30FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BCC748914FCD01E004F30FF /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9BCC747614FCD01E004F30FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BCC748B14FCD01E004F30FF /* main.m in Sources */,
+				9BCC748F14FCD01E004F30FF /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9BCC749F14FCD03C004F30FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NGVolumeControl;
+			targetProxy = 9BCC749E14FCD03C004F30FF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9BCC748714FCD01E004F30FF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BCC748814FCD01E004F30FF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9BCC749014FCD01E004F30FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9BCC749114FCD01E004F30FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9BCC749314FCD01E004F30FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NGVolumeControlDemo/NGVolumeControlDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../NGVolumeControl/**";
+				INFOPLIST_FILE = "NGVolumeControlDemo/NGVolumeControlDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9BCC749414FCD01E004F30FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NGVolumeControlDemo/NGVolumeControlDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = "../../NGVolumeControl/**";
+				INFOPLIST_FILE = "NGVolumeControlDemo/NGVolumeControlDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9BCC747414FCD01E004F30FF /* Build configuration list for PBXProject "NGVolumeControlDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BCC749014FCD01E004F30FF /* Debug */,
+				9BCC749114FCD01E004F30FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BCC749214FCD01E004F30FF /* Build configuration list for PBXNativeTarget "NGVolumeControlDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BCC749314FCD01E004F30FF /* Debug */,
+				9BCC749414FCD01E004F30FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9BCC747114FCD01E004F30FF /* Project object */;
+}
