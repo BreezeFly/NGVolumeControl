@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B17FBF314FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B17FBF214FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h */; };
 		9BCC746314FCCE8D004F30FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCC746214FCCE8D004F30FF /* Foundation.framework */; };
 		9BCC746914FCCE8D004F30FF /* NGVolumeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCC746814FCCE8D004F30FF /* NGVolumeControl.m */; };
 		9BCC74A214FCD3D9004F30FF /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCC74A114FCD3D9004F30FF /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B17FBF214FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGVolumeControlExpandDirection.h; sourceTree = "<group>"; };
 		9BCC745F14FCCE8D004F30FF /* libNGVolumeControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNGVolumeControl.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BCC746214FCCE8D004F30FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9BCC746614FCCE8D004F30FF /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				9BCC746714FCCE8D004F30FF /* NGVolumeControl.h */,
 				9BCC746814FCCE8D004F30FF /* NGVolumeControl.m */,
 				9BCC746514FCCE8D004F30FF /* Supporting Files */,
+				9B17FBF214FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h */,
 			);
 			path = NGVolumeControl;
 			sourceTree = "<group>";
@@ -95,6 +98,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B17FBF314FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

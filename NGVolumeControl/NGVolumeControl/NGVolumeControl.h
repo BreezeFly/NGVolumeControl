@@ -6,9 +6,14 @@
 //  Copyright (c) 2012 NOUS Wissensmanagement GmbH. All rights reserved.
 //
 
+#import "NGVolumeControlExpandDirection.h"
+
 @interface NGVolumeControl : UIControl
 
 /** The system volume, between 0.0f and 1.0f */
 @property (nonatomic, assign) float volume;
+
+/** The expand direction of the volume slider, either up or down */
+@property (nonatomic, assign) NGVolumeControlExpandDirection expandDirection;
 
 @end

@@ -5,10 +5,14 @@
 
 @property (nonatomic, assign) float systemVolume;
 
+- (UIImage *)imageForVolume:(float)volume;
+
 @end
 
 
 @implementation NGVolumeControl
+
+@synthesize expandDirection = _expandDirection;
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - Lifecycle
@@ -16,7 +20,7 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-        
+        _expandDirection = NGVolumeControlExpandDirectionUp;
     }
     
     return self;
@@ -49,6 +53,16 @@
 - (float)systemVolume {
     MPMusicPlayerController *musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
     return musicPlayer.volume;
+}
+
+- (UIImage *)imageForVolume:(float)volume {
+    if (volume < 0.33f) {
+        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume1"];
+    } else if (volume < 0.66f) {
+        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume2"];
+    } else {
+        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume3"];
+    }
 }
 
 @end
