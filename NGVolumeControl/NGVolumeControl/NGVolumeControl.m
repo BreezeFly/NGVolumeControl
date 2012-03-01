@@ -112,7 +112,9 @@
 }
 
 - (UIImage *)imageForVolume:(float)volume {
-    if (volume < 0.33f) {
+    if (volume < 0.001f) {
+        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume0"];
+    } else if (volume < 0.33f) {
         return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume1"];
     } else if (volume < 0.66f) {
         return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume2"];
