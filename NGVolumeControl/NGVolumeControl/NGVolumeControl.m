@@ -7,6 +7,7 @@
 #define kNGSliderHeight                            150.f
 #define kNGMinimumSlideDistance                     15.f
 #define kNGShadowRadius                             10.f
+#define kNGSlideDuration                             0.2
 
 
 @interface NGVolumeControl ()
@@ -21,6 +22,8 @@
 @property (nonatomic, assign) BOOL touchesMoved;
 
 - (UIImage *)imageForVolume:(float)volume;
+- (CGAffineTransform)transformForExpandDirection:(NGVolumeControlExpandDirection)expandDirection;
+- (CGRect)volumeViewFrameForExpandDirection:(NGVolumeControlExpandDirection)expandDirection;
 
 - (void)showSliderAnimated:(BOOL)animated;
 - (void)hideSliderAnimated:(BOOL)animated;
@@ -53,7 +56,6 @@
         self.opaque = NO;
         self.backgroundColor = [UIColor clearColor];
         
-        // TODO: respect direction
         _expandDirection = NGVolumeControlExpandDirectionUp;
         _expanded = NO;
         _touchesMoved = NO;
@@ -64,16 +66,17 @@
         _volumeImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_volumeImageView];
         
-        CGRect sliderViewFrame = CGRectMake(0, -kNGSliderHeight, frame.size.width, kNGSliderHeight);
-        _sliderView = [[UIView alloc] initWithFrame:sliderViewFrame];
+        _sliderView = [[UIView alloc] initWithFrame:[self volumeViewFrameForExpandDirection:_expandDirection]];
         _sliderView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.4f];
+        _sliderView.contentMode = UIViewContentModeTop;
+        _sliderView.clipsToBounds = YES;
         [self hideSliderAnimated:NO];
         [self addSubview:_sliderView];
         
         _slider = [[UISlider alloc] initWithFrame:CGRectMake(0.f, 0.f, kNGSliderHeight, kNGSliderWidth)];
         _slider.minimumValue = 0.f;
         _slider.maximumValue = 1.f;
-        _slider.transform = CGAffineTransformMakeRotation(-M_PI/2.f);
+        _slider.transform = [self transformForExpandDirection:_expandDirection];
         _slider.center = CGPointMake(_sliderView.frame.size.width/2.f, _sliderView.frame.size.height/2.f);
         [_slider addTarget:self action:@selector(handleSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         /*_slider.thumbTintColor = [UIColor redColor];
@@ -162,13 +165,19 @@
         CGPoint point = [touch locationInView:self.sliderView];
         CGFloat distance = NGDistanceBetweenCGPoints(point, self.touchStartPoint);
         
+        // check if we moved the touches because we automatically collapse when the touches
+        // end when the user moved the touches
         if (distance > kNGMinimumSlideDistance) {
             self.touchesMoved = YES;
         }
         
         if (point.y <= kNGSliderHeight) {
-            CGFloat percentage = 1.f - (point.y/kNGSliderHeight);
-
+            CGFloat percentage = point.y/kNGSliderHeight;
+            
+            if (self.expandDirection == NGVolumeControlExpandDirectionUp) {
+                percentage = 1.f - percentage;
+            }
+            
             self.slider.value = percentage;
             self.volume = percentage;
         }    
@@ -178,6 +187,7 @@
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+    // was it a quick-move gesture -> collapse again
     if (self.touchesMoved) {
         self.expanded = NO;
         self.touchesMoved = NO;
@@ -188,15 +198,17 @@
 
 - (void)cancelTrackingWithEvent:(UIEvent *)event {
     self.slider.userInteractionEnabled = YES;
+    self.touchesMoved = NO;
 }
 
 - (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
     
+    // show glow of control like UIButton (showsTouchWhenHighlighted)
     CALayer *glowLayer = self.layer;
     
     if ([glowLayer respondsToSelector:@selector(setShadowPath:)] && [glowLayer respondsToSelector:@selector(shadowPath)]) {
-        if (highlighted) {
+        if (highlighted || self.touchesMoved) {
             glowLayer.shadowOpacity = 0.9f;
         } else {
             glowLayer.shadowOpacity = 0.f;
@@ -212,6 +224,7 @@
     float maxBound = MIN(volume, 1.f);
     float boundedVolume = MAX(maxBound, 0.f);
     
+    // update the system volume
     self.systemVolume = boundedVolume;
     
     // system volume doesn't work on the simulator, so for testing purposes we
@@ -237,6 +250,15 @@
         } else {
             [self hideSliderAnimated:YES];
         }
+    }
+}
+
+- (void)setExpandDirection:(NGVolumeControlExpandDirection)expandDirection {
+    if (expandDirection != _expandDirection) {
+        _expandDirection = expandDirection;
+        
+        self.slider.transform = [self transformForExpandDirection:expandDirection];
+        self.sliderView.frame = [self volumeViewFrameForExpandDirection:expandDirection];
     }
 }
 
@@ -267,6 +289,22 @@
     }
 }
 
+- (CGAffineTransform)transformForExpandDirection:(NGVolumeControlExpandDirection)expandDirection {
+    if (expandDirection == NGVolumeControlExpandDirectionUp) {
+        return CGAffineTransformMakeRotation(-M_PI/2.f);
+    } else {
+        return CGAffineTransformMakeRotation(M_PI/2.f);
+    }
+}
+
+- (CGRect)volumeViewFrameForExpandDirection:(NGVolumeControlExpandDirection)expandDirection {
+    if (expandDirection == NGVolumeControlExpandDirectionUp) {
+        return CGRectMake(0, -kNGSliderHeight, self.bounds.size.width, kNGSliderHeight);
+    } else {
+        return CGRectMake(0, self.bounds.size.height, self.bounds.size.width, kNGSliderHeight);
+    }
+}
+
 - (BOOL)sliderVisible {
     return self.sliderView.alpha > 0.f && !self.sliderView.hidden;
 }
@@ -284,8 +322,38 @@
         return;
     }
     
-    // TODO: animated flag
-    self.sliderView.alpha = 1.f;
+    if (animated) {
+        CGRect frame = self.sliderView.frame;
+        
+        frame.size.height = 0.f;
+        
+        if (self.expandDirection == NGVolumeControlExpandDirectionUp) {
+            frame.origin.y = 0.f;
+        } else {
+            frame.origin.y = self.bounds.size.height;
+        }
+        
+        self.sliderView.frame = frame;
+        self.sliderView.alpha = 0.f;
+        
+        frame.size.height = kNGSliderHeight;
+        
+        if (self.expandDirection == NGVolumeControlExpandDirectionUp) {
+            frame.origin.y = -kNGSliderHeight;
+        } 
+        
+        [UIView animateWithDuration:kNGSlideDuration
+                              delay:0.
+                            options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
+                         animations:^{
+                             self.sliderView.frame = frame;
+                             self.sliderView.alpha = 1.f;
+                         } completion:^(BOOL finished) {
+                             
+                         }];
+    } else {
+        self.sliderView.alpha = 1.f;
+    }
 }
 
 - (void)hideSliderAnimated:(BOOL)animated {
@@ -293,8 +361,31 @@
         return;
     }
     
-    // TODO: animated flag
-    self.sliderView.alpha = 0.f;
+    if (animated) {
+        CGRect frame = self.sliderView.frame;
+        
+        self.sliderView.alpha = 1.f;
+        
+        frame.size.height = 0.f;
+        
+        if (self.expandDirection == NGVolumeControlExpandDirectionUp) {
+            frame.origin.y = 0.f;
+        } else {
+            frame.origin.y = self.bounds.size.height;
+        }
+        
+        [UIView animateWithDuration:kNGSlideDuration
+                              delay:0.
+                            options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
+                         animations:^{
+                             self.sliderView.frame = frame;
+                             self.sliderView.alpha = 0.f;
+                         } completion:^(BOOL finished) {
+                             
+                         }];
+    } else {
+        self.sliderView.alpha = 0.f;
+    }
 }
 
 - (void)updateUI {

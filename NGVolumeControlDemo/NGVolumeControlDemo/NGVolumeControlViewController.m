@@ -17,6 +17,7 @@
     self.view.backgroundColor = [UIColor grayColor];
     
     NGVolumeControl *volumeControl = [[NGVolumeControl alloc] initWithFrame:CGRectMake(200, 300, 35.f, 35.f)];
+    volumeControl.expandDirection = NGVolumeControlExpandDirectionDown;
     [self.view addSubview:volumeControl];
 }
 
