@@ -18,8 +18,6 @@
     
     NGVolumeControl *volumeControl = [[NGVolumeControl alloc] initWithFrame:CGRectMake(300.f, 300.f, 35.f, 35.f)];
     
-    volumeControl.minimumTrackColor = [UIColor redColor];
-    
     [self.view addSubview:volumeControl];
 }
 

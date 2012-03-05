@@ -8,6 +8,9 @@
 
 #import "NGVolumeControlExpandDirection.h"
 
+/**
+ A custom volume control that features a quick-select gesture to change the system volume
+ */
 @interface NGVolumeControl : UIControl
 
 /** The system volume, between 0.0f and 1.0f */

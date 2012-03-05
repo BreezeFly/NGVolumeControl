@@ -9,6 +9,7 @@
 #define kNGMinimumSlideDistance                     15.f
 #define kNGShadowRadius                             10.f
 #define kNGSlideDuration                             0.2
+#define kNGMinimumTapSize                           44.f
 
 
 @interface NGVolumeControl ()
@@ -138,8 +139,17 @@
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    CGRect rectToTest = self.bounds;
+    
+    // if the real bounds are a too small hit-target increase the artificial hit-bounds rect
+    if (self.bounds.size.width < kNGMinimumTapSize && self.bounds.size.height < kNGMinimumTapSize) {
+        rectToTest = CGRectInset(self.bounds,
+                                 (self.bounds.size.width - kNGMinimumTapSize)/2.f,
+                                 (self.bounds.size.height - kNGMinimumTapSize)/2.f);
+    }
+    
     // if the slider is expanded we also have to take the sliderView into account
-    BOOL inside = ([super pointInside:point withEvent:event] ||
+    BOOL inside = (CGRectContainsPoint(rectToTest, point) ||
                    (self.sliderVisible && CGRectContainsPoint(self.sliderView.frame, point)));
     
     if (!inside) {
