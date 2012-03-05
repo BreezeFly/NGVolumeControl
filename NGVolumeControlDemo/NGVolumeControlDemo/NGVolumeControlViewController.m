@@ -14,7 +14,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor grayColor];
     
     NGVolumeControl *volumeControl = [[NGVolumeControl alloc] initWithFrame:CGRectMake(200, 300, 35.f, 35.f)];
     [self.view addSubview:volumeControl];

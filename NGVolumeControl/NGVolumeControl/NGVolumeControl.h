@@ -18,7 +18,4 @@
 /** Flag whether the volume control is currently expanded */
 @property (nonatomic, assign) BOOL expanded;
 
-/** The color of the slider when filled */
-@property (nonatomic, strong) UIColor *fillColor;
-
 @end

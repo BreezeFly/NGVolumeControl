@@ -297,11 +297,16 @@
 		9BCC749314FCD01E004F30FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Matthias Tretter (K5YA74SELK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matthias Tretter (K5YA74SELK)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NGVolumeControlDemo/NGVolumeControlDemo-Prefix.pch";
 				HEADER_SEARCH_PATHS = "../../NGVolumeControl/**";
 				INFOPLIST_FILE = "NGVolumeControlDemo/NGVolumeControlDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "E226776D-CFC9-4F92-B986-C9A3DC5BF4C8";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E226776D-CFC9-4F92-B986-C9A3DC5BF4C8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -309,11 +314,16 @@
 		9BCC749414FCD01E004F30FF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Matthias Tretter (K5YA74SELK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matthias Tretter (K5YA74SELK)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NGVolumeControlDemo/NGVolumeControlDemo-Prefix.pch";
 				HEADER_SEARCH_PATHS = "../../NGVolumeControl/**";
 				INFOPLIST_FILE = "NGVolumeControlDemo/NGVolumeControlDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "E226776D-CFC9-4F92-B986-C9A3DC5BF4C8";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E226776D-CFC9-4F92-B986-C9A3DC5BF4C8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
