@@ -18,4 +18,7 @@
 /** Flag whether the volume control is currently expanded */
 @property (nonatomic, assign) BOOL expanded;
 
+@property (nonatomic, strong) UIColor *minimumTrackColor;
+@property (nonatomic, strong) UIColor *maximumTrackColor;
+
 @end

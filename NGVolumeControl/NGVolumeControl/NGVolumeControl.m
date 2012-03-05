@@ -33,6 +33,7 @@
 - (void)handleSliderValueChanged:(id)sender;
 
 - (void)updateUI;
+- (void)customizeSlider;
 
 @end
 
@@ -46,6 +47,8 @@
 @synthesize slider = _slider;
 @synthesize touchStartPoint = _touchStartPoint;
 @synthesize touchesMoved = _touchesMoved;
+@synthesize minimumTrackColor = _minimumTrackColor;
+@synthesize maximumTrackColor = _maximumTrackColor;
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - Lifecycle
@@ -58,6 +61,9 @@
         
         _expandDirection = NGVolumeControlExpandDirectionUp;
         _expanded = NO;
+        _minimumTrackColor = [UIColor whiteColor];
+        _maximumTrackColor = [UIColor colorWithWhite:1.f alpha:.2f];
+        
         _touchesMoved = NO;
         _touchStartPoint = CGPointZero;
         
@@ -79,9 +85,7 @@
         _slider.transform = [self transformForExpandDirection:_expandDirection];
         _slider.center = CGPointMake(_sliderView.frame.size.width/2.f, _sliderView.frame.size.height/2.f);
         [_slider addTarget:self action:@selector(handleSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-        /*_slider.thumbTintColor = [UIColor redColor];
-         _slider.minimumTrackTintColor = [UIColor whiteColor];
-         _slider.maximumTrackTintColor = [UIColor darkGrayColor];*/
+        [self customizeSlider];
         [_sliderView addSubview:_slider];
         
         // set properties of glow Layer
@@ -262,6 +266,22 @@
     }
 }
 
+- (void)setMinimumTrackColor:(UIColor *)minimumTrackColor {
+    if (minimumTrackColor != _minimumTrackColor) {
+        _minimumTrackColor = minimumTrackColor;
+        
+        [self customizeSlider];
+    }
+}
+
+- (void)setMaximumTrackColor:(UIColor *)maximumTrackColor {
+    if (maximumTrackColor != _maximumTrackColor) {
+        _maximumTrackColor = maximumTrackColor;
+        
+        [self customizeSlider];
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - Private
 ////////////////////////////////////////////////////////////////////////
@@ -401,6 +421,37 @@
 
 - (void)handleSliderValueChanged:(id)sender {
     self.volume = self.slider.value;
+}
+
+- (void)customizeSlider {
+    //Build a rect of appropriate size at origin 0,0
+    CGRect fillRect = CGRectMake(0.f,0.f,1.f,10.f);
+    
+    //Create a context of the appropriate size
+    UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    //Set the fill color
+    CGContextSetFillColorWithColor(currentContext, self.minimumTrackColor.CGColor);
+    //Fill the color
+    CGContextFillRect(currentContext, fillRect);
+    //Snap the picture and close the context
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.slider setMinimumTrackImage:image forState:UIControlStateNormal];
+    
+    //Create a context of the appropriate size
+    UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
+    currentContext = UIGraphicsGetCurrentContext();
+    //Set the fill color
+    CGContextSetFillColorWithColor(currentContext, self.maximumTrackColor.CGColor);
+    //Fill the color
+    CGContextFillRect(currentContext, fillRect);
+    //Snap the picture and close the context
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.slider setMaximumTrackImage:image forState:UIControlStateNormal];
+    
+    [self.slider setThumbImage:[UIImage imageNamed:@"NGVolumeControl.bundle/ScrubberKnob"] forState:UIControlStateNormal];
 }
 
 @end
