@@ -16,7 +16,7 @@
     
     self.view.backgroundColor = [UIColor grayColor];
     
-    NGVolumeControl *volumeControl = [[NGVolumeControl alloc] initWithFrame:CGRectMake(0.f, 0.f, 35.f, 35.f)];
+    NGVolumeControl *volumeControl = [[NGVolumeControl alloc] initWithFrame:CGRectMake(300.f, 300.f, 35.f, 35.f)];
     
     volumeControl.minimumTrackColor = [UIColor redColor];
     

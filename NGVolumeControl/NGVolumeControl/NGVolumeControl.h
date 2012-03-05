@@ -18,7 +18,11 @@
 /** Flag whether the volume control is currently expanded */
 @property (nonatomic, assign) BOOL expanded;
 
+/** The color of the slider track below the current value, defaults to white */
 @property (nonatomic, strong) UIColor *minimumTrackColor;
+/** The color of the slider track above the current value, defaults to gray */
 @property (nonatomic, strong) UIColor *maximumTrackColor;
+
+- (void)setExpanded:(BOOL)expanded animated:(BOOL)animated;
 
 @end

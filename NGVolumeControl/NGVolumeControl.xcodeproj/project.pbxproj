@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9B0454C91504F33E007F8E7C /* NGGeometryFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B0454C81504F33E007F8E7C /* NGGeometryFunctions.h */; };
+		9B0454F815058022007F8E7C /* NGVolumeControl+NGCustomize.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B0454F715058022007F8E7C /* NGVolumeControl+NGCustomize.h */; };
 		9B17FBF314FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B17FBF214FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h */; };
 		9BCC746314FCCE8D004F30FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCC746214FCCE8D004F30FF /* Foundation.framework */; };
 		9BCC746914FCCE8D004F30FF /* NGVolumeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCC746814FCCE8D004F30FF /* NGVolumeControl.m */; };
@@ -16,6 +17,7 @@
 
 /* Begin PBXFileReference section */
 		9B0454C81504F33E007F8E7C /* NGGeometryFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGGeometryFunctions.h; sourceTree = "<group>"; };
+		9B0454F715058022007F8E7C /* NGVolumeControl+NGCustomize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NGVolumeControl+NGCustomize.h"; sourceTree = "<group>"; };
 		9B17FBF214FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGVolumeControlExpandDirection.h; sourceTree = "<group>"; };
 		9BCC745F14FCCE8D004F30FF /* libNGVolumeControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNGVolumeControl.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BCC746214FCCE8D004F30FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -71,6 +73,7 @@
 			children = (
 				9BCC746714FCCE8D004F30FF /* NGVolumeControl.h */,
 				9BCC746814FCCE8D004F30FF /* NGVolumeControl.m */,
+				9B0454F715058022007F8E7C /* NGVolumeControl+NGCustomize.h */,
 				9B0454C81504F33E007F8E7C /* NGGeometryFunctions.h */,
 				9BCC746514FCCE8D004F30FF /* Supporting Files */,
 				9B17FBF214FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h */,
@@ -103,6 +106,7 @@
 			files = (
 				9B17FBF314FCDDDB00BF5F4A /* NGVolumeControlExpandDirection.h in Headers */,
 				9B0454C91504F33E007F8E7C /* NGGeometryFunctions.h in Headers */,
+				9B0454F815058022007F8E7C /* NGVolumeControl+NGCustomize.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

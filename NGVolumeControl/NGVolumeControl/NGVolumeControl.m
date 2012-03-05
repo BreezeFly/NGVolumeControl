@@ -1,5 +1,6 @@
 #import "NGVolumeControl.h"
 #import "NGGeometryFunctions.h"
+#import "NGVolumeControl+NGCustomize.h"
 
 
 #define NGSystemVolumeDidChangeNotification         @"AVSystemController_SystemVolumeDidChangeNotification"
@@ -21,7 +22,6 @@
 @property (nonatomic, assign) CGPoint touchStartPoint;
 @property (nonatomic, assign) BOOL touchesMoved;
 
-- (UIImage *)imageForVolume:(float)volume;
 - (CGAffineTransform)transformForExpandDirection:(NGVolumeControlExpandDirection)expandDirection;
 - (CGRect)volumeViewFrameForExpandDirection:(NGVolumeControlExpandDirection)expandDirection;
 
@@ -33,7 +33,10 @@
 - (void)handleSliderValueChanged:(id)sender;
 
 - (void)updateUI;
-- (void)customizeSlider;
+
+// NGVolumeControl+NGSubclass
+- (UIImage *)imageForVolume:(float)volume;
+- (void)customizeSlider:(UISlider *)slider;
 
 @end
 
@@ -85,7 +88,7 @@
         _slider.transform = [self transformForExpandDirection:_expandDirection];
         _slider.center = CGPointMake(_sliderView.frame.size.width/2.f, _sliderView.frame.size.height/2.f);
         [_slider addTarget:self action:@selector(handleSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-        [self customizeSlider];
+        [self customizeSlider:_slider];
         [_sliderView addSubview:_slider];
         
         // set properties of glow Layer
@@ -140,7 +143,7 @@
                    (self.sliderVisible && CGRectContainsPoint(self.sliderView.frame, point)));
     
     if (!inside) {
-        self.expanded = NO;
+        [self setExpanded:NO animated:YES];
     }
     
     return inside;
@@ -154,11 +157,11 @@
     self.touchStartPoint = [touch locationInView:self];
     
     if (!self.expanded) {
-        self.expanded = YES;
+        [self setExpanded:YES animated:YES];
         self.touchesMoved = NO;
         self.slider.userInteractionEnabled = NO;
     } else {
-        self.expanded = NO;
+        [self setExpanded:NO animated:YES];
     }
     
     return YES;
@@ -193,7 +196,7 @@
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
     // was it a quick-move gesture -> collapse again
     if (self.touchesMoved) {
-        self.expanded = NO;
+        [self setExpanded:NO animated:YES];
         self.touchesMoved = NO;
     }
     
@@ -246,13 +249,17 @@
 }
 
 - (void)setExpanded:(BOOL)expanded {
+    [self setExpanded:expanded animated:NO];
+}
+
+- (void)setExpanded:(BOOL)expanded animated:(BOOL)animated {
     if (expanded != _expanded) {
         _expanded = expanded;
         
         if (expanded) {
-            [self showSliderAnimated:YES];
+            [self showSliderAnimated:animated];
         } else {
-            [self hideSliderAnimated:YES];
+            [self hideSliderAnimated:animated];
         }
     }
 }
@@ -270,7 +277,7 @@
     if (minimumTrackColor != _minimumTrackColor) {
         _minimumTrackColor = minimumTrackColor;
         
-        [self customizeSlider];
+        [self customizeSlider:self.slider];
     }
 }
 
@@ -278,8 +285,56 @@
     if (maximumTrackColor != _maximumTrackColor) {
         _maximumTrackColor = maximumTrackColor;
         
-        [self customizeSlider];
+        [self customizeSlider:self.slider];
     }
+}
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark - NGVolumeControl+NGSubclass
+////////////////////////////////////////////////////////////////////////
+
+- (UIImage *)imageForVolume:(float)volume {
+    // Returns an image that represents the current volume
+    if (volume < 0.001f) {
+        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume0"];
+    } else if (volume < 0.33f) {
+        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume1"];
+    } else if (volume < 0.66f) {
+        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume2"];
+    } else {
+        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume3"];
+    }
+}
+
+- (void)customizeSlider:(UISlider *)slider {
+    //Build a rect of appropriate size at origin 0,0
+    CGRect fillRect = CGRectMake(0.f,0.f,1.f,10.f);
+    
+    //Create a context of the appropriate size
+    UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    //Set the fill color
+    CGContextSetFillColorWithColor(currentContext, self.minimumTrackColor.CGColor);
+    //Fill the color
+    CGContextFillRect(currentContext, fillRect);
+    //Snap the picture and close the context
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.slider setMinimumTrackImage:image forState:UIControlStateNormal];
+    
+    //Create a context of the appropriate size
+    UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
+    currentContext = UIGraphicsGetCurrentContext();
+    //Set the fill color
+    CGContextSetFillColorWithColor(currentContext, self.maximumTrackColor.CGColor);
+    //Fill the color
+    CGContextFillRect(currentContext, fillRect);
+    //Snap the picture and close the context
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.slider setMaximumTrackImage:image forState:UIControlStateNormal];
+    
+    [self.slider setThumbImage:[UIImage imageNamed:@"NGVolumeControl.bundle/ScrubberKnob"] forState:UIControlStateNormal];
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -294,19 +349,6 @@
 - (float)systemVolume {
     MPMusicPlayerController *musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
     return musicPlayer.volume;
-}
-
-- (UIImage *)imageForVolume:(float)volume {
-    // Returns an image that represents the current volume
-    if (volume < 0.001f) {
-        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume0"];
-    } else if (volume < 0.33f) {
-        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume1"];
-    } else if (volume < 0.66f) {
-        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume2"];
-    } else {
-        return [UIImage imageNamed:@"NGVolumeControl.bundle/Volume3"];
-    }
 }
 
 - (CGAffineTransform)transformForExpandDirection:(NGVolumeControlExpandDirection)expandDirection {
@@ -421,37 +463,6 @@
 
 - (void)handleSliderValueChanged:(id)sender {
     self.volume = self.slider.value;
-}
-
-- (void)customizeSlider {
-    //Build a rect of appropriate size at origin 0,0
-    CGRect fillRect = CGRectMake(0.f,0.f,1.f,10.f);
-    
-    //Create a context of the appropriate size
-    UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
-    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    //Set the fill color
-    CGContextSetFillColorWithColor(currentContext, self.minimumTrackColor.CGColor);
-    //Fill the color
-    CGContextFillRect(currentContext, fillRect);
-    //Snap the picture and close the context
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    [self.slider setMinimumTrackImage:image forState:UIControlStateNormal];
-    
-    //Create a context of the appropriate size
-    UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
-    currentContext = UIGraphicsGetCurrentContext();
-    //Set the fill color
-    CGContextSetFillColorWithColor(currentContext, self.maximumTrackColor.CGColor);
-    //Fill the color
-    CGContextFillRect(currentContext, fillRect);
-    //Snap the picture and close the context
-    image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    [self.slider setMaximumTrackImage:image forState:UIControlStateNormal];
-    
-    [self.slider setThumbImage:[UIImage imageNamed:@"NGVolumeControl.bundle/ScrubberKnob"] forState:UIControlStateNormal];
 }
 
 @end
