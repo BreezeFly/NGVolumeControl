@@ -19,5 +19,6 @@ NGVolumeControl was created by [Matthias Tretter](https://github.com/myell0w/) (
 
 ## License
 
-NGVolumeControl is available under the MIT license. See the LICENSE file for more info.
+NGVolumeControl is available under the MIT license, see the LICENSE file for more info.
+
 For usage without attribution contact [NOUSguide](mailto:info@nousguide.com).
