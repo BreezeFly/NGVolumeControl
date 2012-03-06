@@ -15,7 +15,7 @@ A custom (and customizable) volume control for iOS with a quick-gesture to chang
 
 ## Credits
 
-NGVolumeControl was created by [Matthias Tretter](https://github.com/myell0w/) ([myell0w](http://twitter.com/myell0w)).
+NGVolumeControl was created by [Matthias Tretter](https://github.com/myell0w/) ([@myell0w](http://twitter.com/myell0w)).
 
 ## License
 
