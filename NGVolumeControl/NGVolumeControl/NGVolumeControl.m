@@ -81,6 +81,7 @@
         _sliderView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.4f];
         _sliderView.contentMode = UIViewContentModeTop;
         _sliderView.clipsToBounds = YES;
+        _sliderView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self hideSliderAnimated:NO];
         [self addSubview:_sliderView];
         
@@ -89,6 +90,7 @@
         _slider.maximumValue = 1.f;
         _slider.transform = [self transformForExpandDirection:_expandDirection];
         _slider.center = CGPointMake(_sliderView.frame.size.width/2.f, _sliderView.frame.size.height/2.f);
+        _slider.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [_slider addTarget:self action:@selector(handleSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self customizeSlider:_slider];
         [_sliderView addSubview:_slider];
