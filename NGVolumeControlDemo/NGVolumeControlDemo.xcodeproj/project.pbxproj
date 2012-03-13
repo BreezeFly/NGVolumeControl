@@ -166,7 +166,7 @@
 		9BCC747114FCD01E004F30FF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "NOUS Wissensmanagement GmbH";
 			};
 			buildConfigurationList = 9BCC747414FCD01E004F30FF /* Build configuration list for PBXProject "NGVolumeControlDemo" */;
