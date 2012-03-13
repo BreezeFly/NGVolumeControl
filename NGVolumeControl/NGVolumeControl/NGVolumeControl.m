@@ -200,7 +200,7 @@
             
             self.slider.value = percentage;
             self.volume = percentage;
-        }    
+        }
     }
     
     return YES;
@@ -255,6 +255,8 @@
 #else
     [self updateUI];
 #endif
+    
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (float)volume {
