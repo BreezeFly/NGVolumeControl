@@ -73,6 +73,7 @@
         
         _volumeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 21.f, 23.f)];
         _volumeImageView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        _volumeImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         _volumeImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:_volumeImageView];
         
