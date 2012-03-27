@@ -6,7 +6,7 @@
 #define NGSystemVolumeDidChangeNotification         @"AVSystemController_SystemVolumeDidChangeNotification"
 #define kNGSliderWidth                              40.f
 #define kNGSliderHeight                            150.f
-#define kNGMinimumSlideDistance                     15.f
+#define kNGMinimumSlideDistance                     10.f
 #define kNGShadowRadius                             10.f
 #define kNGSlideDuration                             0.2
 #define kNGMinimumTapSize                           44.f
@@ -191,16 +191,18 @@
             self.touchesMoved = YES;
         }
         
-        if (point.y <= kNGSliderHeight) {
-            CGFloat percentage = point.y/kNGSliderHeight;
-            
-            if (self.expandDirection == NGVolumeControlExpandDirectionUp) {
-                percentage = 1.f - percentage;
-            }
-            
-            self.slider.value = percentage;
-            self.volume = percentage;
+        if (point.y > kNGSliderHeight) {
+            point.y = kNGSliderHeight;
         }
+        
+        CGFloat percentage = point.y/kNGSliderHeight;
+        
+        if (self.expandDirection == NGVolumeControlExpandDirectionUp) {
+            percentage = 1.f - percentage;
+        }
+        
+        self.slider.value = percentage;
+        self.volume = percentage;
     }
     
     return YES;
