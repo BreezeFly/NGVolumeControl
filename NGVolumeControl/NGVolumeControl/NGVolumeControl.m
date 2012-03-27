@@ -71,6 +71,12 @@
         _touchesMoved = NO;
         _touchStartPoint = CGPointZero;
         
+        // Prevent Audio-Change Popus
+        MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-2000., -2000., 0.f, 0.f)];
+        volumeView.alpha = 0.1f;
+        volumeView.userInteractionEnabled = NO;
+        [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:volumeView];
+        
         _volumeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 21.f, 23.f)];
         _volumeImageView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
         _volumeImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
