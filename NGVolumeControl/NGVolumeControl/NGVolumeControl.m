@@ -46,6 +46,7 @@
 
 @synthesize expandDirection = _expandDirection;
 @synthesize expanded = _expanded;
+@synthesize sliderHeight = _sliderHeight;
 @synthesize volumeImageView = _volumeImageView;
 @synthesize sliderView = _sliderView;
 @synthesize slider = _slider;
@@ -63,6 +64,7 @@
         self.opaque = NO;
         self.backgroundColor = [UIColor clearColor];
         
+        _sliderHeight = kNGSliderHeight;
         _expandDirection = NGVolumeControlExpandDirectionUp;
         _expanded = NO;
         _minimumTrackColor = [UIColor whiteColor];
@@ -91,7 +93,7 @@
         [self hideSliderAnimated:NO];
         [self addSubview:_sliderView];
         
-        _slider = [[UISlider alloc] initWithFrame:CGRectMake(0.f, 0.f, kNGSliderHeight, kNGSliderWidth)];
+        _slider = [[UISlider alloc] initWithFrame:CGRectMake(0.f, 0.f, _sliderHeight, kNGSliderWidth)];
         _slider.minimumValue = 0.f;
         _slider.maximumValue = 1.f;
         _slider.transform = [self transformForExpandDirection:_expandDirection];
@@ -197,11 +199,11 @@
             self.touchesMoved = YES;
         }
         
-        if (point.y > kNGSliderHeight) {
-            point.y = kNGSliderHeight;
+        if (point.y > self.sliderHeight) {
+            point.y = self.sliderHeight;
         }
         
-        CGFloat percentage = point.y/kNGSliderHeight;
+        CGFloat percentage = point.y/self.sliderHeight;
         
         if (self.expandDirection == NGVolumeControlExpandDirectionUp) {
             percentage = 1.f - percentage;
@@ -314,6 +316,20 @@
     }
 }
 
+- (void)setSliderHeight:(CGFloat)sliderHeight {
+    if (sliderHeight != _sliderHeight) {
+        _sliderHeight = sliderHeight;
+        
+        // Update UI to new height
+        [self hideSliderAnimated:NO];
+        self.sliderView.frame = [self volumeViewFrameForExpandDirection:self.expandDirection];
+        
+        CGRect frame = self.slider.frame;
+        frame.size.width = sliderHeight;
+        self.slider.frame = frame;
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - NGVolumeControl+NGSubclass
 ////////////////////////////////////////////////////////////////////////
@@ -386,9 +402,9 @@
 
 - (CGRect)volumeViewFrameForExpandDirection:(NGVolumeControlExpandDirection)expandDirection {
     if (expandDirection == NGVolumeControlExpandDirectionUp) {
-        return CGRectMake(0, -kNGSliderHeight, self.bounds.size.width, kNGSliderHeight);
+        return CGRectMake(0, -self.sliderHeight, self.bounds.size.width, self.sliderHeight);
     } else {
-        return CGRectMake(0, self.bounds.size.height, self.bounds.size.width, kNGSliderHeight);
+        return CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.sliderHeight);
     }
 }
 
@@ -423,10 +439,10 @@
         self.sliderView.frame = frame;
         self.sliderView.alpha = 0.f;
         
-        frame.size.height = kNGSliderHeight;
+        frame.size.height = self.sliderHeight;
         
         if (self.expandDirection == NGVolumeControlExpandDirectionUp) {
-            frame.origin.y = -kNGSliderHeight;
+            frame.origin.y = -self.sliderHeight;
         } 
         
         [UIView animateWithDuration:kNGSlideDuration

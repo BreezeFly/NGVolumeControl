@@ -21,6 +21,9 @@
 /** Flag whether the volume control is currently expanded */
 @property (nonatomic, assign) BOOL expanded;
 
+/** The height of the expanded volume slider */
+@property (nonatomic, assign) CGFloat sliderHeight;
+
 /** The color of the slider track below the current value, defaults to white */
 @property (nonatomic, strong) UIColor *minimumTrackColor;
 /** The color of the slider track above the current value, defaults to gray */
