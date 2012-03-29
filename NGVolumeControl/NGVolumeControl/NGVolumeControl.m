@@ -324,9 +324,10 @@
         [self hideSliderAnimated:NO];
         self.sliderView.frame = [self volumeViewFrameForExpandDirection:self.expandDirection];
         
-        CGRect frame = self.slider.frame;
-        frame.size.width = sliderHeight;
-        self.slider.frame = frame;
+        self.slider.transform = CGAffineTransformIdentity;
+        self.slider.frame = CGRectMake(0.f, 0.f, sliderHeight, kNGSliderWidth);
+        self.slider.transform = [self transformForExpandDirection:self.expandDirection];
+        self.slider.center = CGPointMake(self.sliderView.frame.size.width/2.f, self.sliderView.frame.size.height/2.f);        
     }
 }
 
