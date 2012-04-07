@@ -279,9 +279,7 @@
 
 - (void)setExpanded:(BOOL)expanded animated:(BOOL)animated {
     if (expanded != _expanded) {
-        [self willChangeValueForKey:@"expanded"];
         _expanded = expanded;
-        [self didChangeValueForKey:@"expanded"];
         
         if (expanded) {
             [self showSliderAnimated:animated];
