@@ -29,6 +29,12 @@
 /** The color of the slider track above the current value, defaults to gray */
 @property (nonatomic, strong) UIColor *maximumTrackColor;
 
+/**
+ Prevents the system audio change popup from showing up by adding a (hidden) MPVolumeView
+ to the first window.
+ */
++ (void)preventSystemVolumePopup;
+
 - (void)setExpanded:(BOOL)expanded animated:(BOOL)animated;
 
 @end
