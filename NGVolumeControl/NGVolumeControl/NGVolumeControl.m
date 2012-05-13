@@ -4,8 +4,8 @@
 
 
 #define NGSystemVolumeDidChangeNotification         @"AVSystemController_SystemVolumeDidChangeNotification"
-#define kNGSliderWidth                              40.f
-#define kNGSliderHeight                            150.f
+#define kNGSliderWidth                              48.f
+#define kNGSliderHeight                            170.f
 #define kNGMinimumSlideDistance                     10.f
 #define kNGShadowRadius                             10.f
 #define kNGSlideDuration                             0.2
@@ -80,14 +80,25 @@
         [self addSubview:_volumeImageView];
         
         _sliderView = [[UIView alloc] initWithFrame:[self volumeViewFrameForExpandDirection:_expandDirection]];
-        _sliderView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.4f];
+        _sliderView.backgroundColor = [UIColor clearColor];
         _sliderView.contentMode = UIViewContentModeTop;
         _sliderView.clipsToBounds = YES;
         _sliderView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        UIImage *sliderBackgroundImage = [UIImage imageNamed:@"NGVolumeControl.bundle/volume-background.png"];
+        if ([sliderBackgroundImage respondsToSelector:@selector(resizableImageWithCapInsets:)]) {
+            sliderBackgroundImage = [sliderBackgroundImage resizableImageWithCapInsets:UIEdgeInsetsMake(47.f, 24.f, 47.f, 24.f)];
+        } else {
+            sliderBackgroundImage = [sliderBackgroundImage stretchableImageWithLeftCapWidth:24 topCapHeight:47];
+        }
+        UIImageView *sliderBackgroundImageView = [[UIImageView alloc] initWithFrame:_sliderView.bounds];
+        sliderBackgroundImageView.image = sliderBackgroundImage;
+        sliderBackgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [_sliderView addSubview:sliderBackgroundImageView];
         [self hideSliderAnimated:NO];
         [self addSubview:_sliderView];
         
-        _slider = [[UISlider alloc] initWithFrame:CGRectMake(0.f, 0.f, _sliderHeight, kNGSliderWidth)];
+        
+        _slider = [[UISlider alloc] initWithFrame:(_expandDirection == NGVolumeControlExpandDirectionUp ? CGRectMake(0.f, 10.f, _sliderHeight - 40.f, kNGSliderWidth) : CGRectMake(0.f, 20.f, _sliderHeight - 30.f, kNGSliderWidth))];
         _slider.minimumValue = 0.f;
         _slider.maximumValue = 1.f;
         _slider.transform = [self transformForExpandDirection:_expandDirection];
