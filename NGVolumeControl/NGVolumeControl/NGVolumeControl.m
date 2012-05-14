@@ -23,8 +23,11 @@
 @property (nonatomic, assign) CGPoint touchStartPoint;
 @property (nonatomic, assign) BOOL touchesMoved;
 
+@property (nonatomic, strong) UIImageView *sliderBackgroundView;
+
 - (CGAffineTransform)transformForExpandDirection:(NGVolumeControlExpandDirection)expandDirection;
 - (CGRect)volumeViewFrameForExpandDirection:(NGVolumeControlExpandDirection)expandDirection;
+- (UIImage *)imageForSliderBackgroundForExpandDirection:(NGVolumeControlExpandDirection)expandDirection;
 
 - (void)showSliderAnimated:(BOOL)animated;
 - (void)hideSliderAnimated:(BOOL)animated;
@@ -54,6 +57,7 @@
 @synthesize touchesMoved = _touchesMoved;
 @synthesize minimumTrackColor = _minimumTrackColor;
 @synthesize maximumTrackColor = _maximumTrackColor;
+@synthesize sliderBackgroundView = _sliderBackgroundView;
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - Lifecycle
@@ -84,26 +88,21 @@
         _sliderView.contentMode = UIViewContentModeTop;
         _sliderView.clipsToBounds = YES;
         _sliderView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        UIImage *sliderBackgroundImage = [UIImage imageNamed:@"NGVolumeControl.bundle/volume-background.png"];
-        if ([sliderBackgroundImage respondsToSelector:@selector(resizableImageWithCapInsets:)]) {
-            sliderBackgroundImage = [sliderBackgroundImage resizableImageWithCapInsets:UIEdgeInsetsMake(47.f, 24.f, 47.f, 24.f)];
-        } else {
-            sliderBackgroundImage = [sliderBackgroundImage stretchableImageWithLeftCapWidth:24 topCapHeight:47];
-        }
-        UIImageView *sliderBackgroundImageView = [[UIImageView alloc] initWithFrame:_sliderView.bounds];
-        sliderBackgroundImageView.image = sliderBackgroundImage;
-        sliderBackgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [_sliderView addSubview:sliderBackgroundImageView];
+        
+        _sliderBackgroundView = [[UIImageView alloc] initWithFrame:_sliderView.bounds];
+        _sliderBackgroundView.image = [self imageForSliderBackgroundForExpandDirection:_expandDirection];
+        _sliderBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [_sliderView addSubview:_sliderBackgroundView];
         [self hideSliderAnimated:NO];
         [self addSubview:_sliderView];
         
         
-        _slider = [[UISlider alloc] initWithFrame:(_expandDirection == NGVolumeControlExpandDirectionUp ? CGRectMake(0.f, 10.f, _sliderHeight - 40.f, kNGSliderWidth) : CGRectMake(0.f, 20.f, _sliderHeight - 30.f, kNGSliderWidth))];
+        _slider = [[UISlider alloc] initWithFrame:(_expandDirection == NGVolumeControlExpandDirectionUp ? CGRectMake(0.f, 10.f, _sliderHeight - 40.f, kNGSliderWidth) : CGRectMake(0.f, 20.f, _sliderHeight - 40.f, kNGSliderWidth))];
         _slider.minimumValue = 0.f;
         _slider.maximumValue = 1.f;
         _slider.transform = [self transformForExpandDirection:_expandDirection];
         _slider.center = CGPointMake(_sliderView.frame.size.width/2.f, _sliderView.frame.size.height/2.f);
-        _slider.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        _slider.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
         [_slider addTarget:self action:@selector(handleSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self customizeSlider:_slider];
         [_sliderView addSubview:_slider];
@@ -317,6 +316,8 @@
         
         self.slider.transform = [self transformForExpandDirection:expandDirection];
         self.sliderView.frame = [self volumeViewFrameForExpandDirection:expandDirection];
+        
+        self.sliderBackgroundView.image = [self imageForSliderBackgroundForExpandDirection:expandDirection];
     }
 }
 
@@ -345,7 +346,7 @@
         self.sliderView.frame = [self volumeViewFrameForExpandDirection:self.expandDirection];
         
         self.slider.transform = CGAffineTransformIdentity;
-        self.slider.frame = CGRectMake(0.f, 0.f, sliderHeight, kNGSliderWidth);
+        self.slider.frame = (_expandDirection == NGVolumeControlExpandDirectionUp ? CGRectMake(0.f, 10.f, _sliderHeight - 40.f, kNGSliderWidth) : CGRectMake(0.f, 20.f, _sliderHeight - 40.f, kNGSliderWidth));
         self.slider.transform = [self transformForExpandDirection:self.expandDirection];
         self.slider.center = CGPointMake(self.sliderView.frame.size.width/2.f, self.sliderView.frame.size.height/2.f);        
     }
@@ -427,6 +428,21 @@
     } else {
         return CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.sliderHeight);
     }
+}
+
+- (UIImage *)imageForSliderBackgroundForExpandDirection:(NGVolumeControlExpandDirection)expandDirection {
+    UIImage *sliderBackgroundImage = [UIImage imageNamed:@"NGVolumeControl.bundle/volume-background.png"];
+    
+    if (expandDirection == NGVolumeControlExpandDirectionDown) {
+        sliderBackgroundImage = [[UIImage alloc] initWithCGImage:sliderBackgroundImage.CGImage scale:2.0 orientation:UIImageOrientationDown];
+    }
+    if ([sliderBackgroundImage respondsToSelector:@selector(resizableImageWithCapInsets:)]) {
+        sliderBackgroundImage = [sliderBackgroundImage resizableImageWithCapInsets:UIEdgeInsetsMake(47.f, 24.f, 47.f, 24.f)];
+    } else {
+        sliderBackgroundImage = [sliderBackgroundImage stretchableImageWithLeftCapWidth:24 topCapHeight:47];
+    }
+    
+    return sliderBackgroundImage;
 }
 
 - (BOOL)sliderVisible {
