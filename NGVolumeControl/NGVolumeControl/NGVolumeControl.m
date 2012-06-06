@@ -97,7 +97,7 @@
         [self addSubview:_sliderView];
         
         
-        _slider = [[UISlider alloc] initWithFrame:(_expandDirection == NGVolumeControlExpandDirectionUp ? CGRectMake(0.f, 10.f, _sliderHeight - 40.f, kNGSliderWidth) : CGRectMake(0.f, 20.f, _sliderHeight - 40.f, kNGSliderWidth))];
+        _slider = [[UISlider alloc] initWithFrame:(_expandDirection == NGVolumeControlExpandDirectionUp ? CGRectMake(0.f, 5.f, _sliderHeight - 45.f, kNGSliderWidth) : CGRectMake(0.f, 20.f, _sliderHeight - 45.f, kNGSliderWidth))];
         _slider.minimumValue = 0.f;
         _slider.maximumValue = 1.f;
         _slider.transform = [self transformForExpandDirection:_expandDirection];
@@ -346,7 +346,7 @@
         self.sliderView.frame = [self volumeViewFrameForExpandDirection:self.expandDirection];
         
         self.slider.transform = CGAffineTransformIdentity;
-        self.slider.frame = (_expandDirection == NGVolumeControlExpandDirectionUp ? CGRectMake(0.f, 10.f, _sliderHeight - 40.f, kNGSliderWidth) : CGRectMake(0.f, 20.f, _sliderHeight - 40.f, kNGSliderWidth));
+        self.slider.frame = (_expandDirection == NGVolumeControlExpandDirectionUp ? CGRectMake(0.f, 5.f, _sliderHeight - 45.f, kNGSliderWidth) : CGRectMake(0.f, 20.f, _sliderHeight - 45.f, kNGSliderWidth));
         self.slider.transform = [self transformForExpandDirection:self.expandDirection];
         self.slider.center = CGPointMake(self.sliderView.frame.size.width/2.f, self.sliderView.frame.size.height/2.f);        
     }
@@ -370,32 +370,37 @@
 }
 
 - (void)customizeSlider:(UISlider *)slider {
-    //Build a rect of appropriate size at origin 0,0
-    CGRect fillRect = CGRectMake(0.f,0.f,1.f,10.f);
-    
-    //Create a context of the appropriate size
-    UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
-    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    //Set the fill color
-    CGContextSetFillColorWithColor(currentContext, self.minimumTrackColor.CGColor);
-    //Fill the color
-    CGContextFillRect(currentContext, fillRect);
-    //Snap the picture and close the context
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    [self.slider setMinimumTrackImage:image forState:UIControlStateNormal];
-    
-    //Create a context of the appropriate size
-    UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
-    currentContext = UIGraphicsGetCurrentContext();
-    //Set the fill color
-    CGContextSetFillColorWithColor(currentContext, self.maximumTrackColor.CGColor);
-    //Fill the color
-    CGContextFillRect(currentContext, fillRect);
-    //Snap the picture and close the context
-    image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    [self.slider setMaximumTrackImage:image forState:UIControlStateNormal];
+    if ([slider respondsToSelector:@selector(setMinimumTrackTintColor:)]) {
+        slider.minimumTrackTintColor = self.minimumTrackColor;
+        slider.maximumTrackTintColor = self.maximumTrackColor;
+    } else {
+        //Build a rect of appropriate size at origin 0,0
+        CGRect fillRect = CGRectMake(0.f,0.f,1.f,10.f);
+        
+        //Create a context of the appropriate size
+        UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
+        CGContextRef currentContext = UIGraphicsGetCurrentContext();
+        //Set the fill color
+        CGContextSetFillColorWithColor(currentContext, self.minimumTrackColor.CGColor);
+        //Fill the color
+        CGContextFillRect(currentContext, fillRect);
+        //Snap the picture and close the context
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        [self.slider setMinimumTrackImage:image forState:UIControlStateNormal];
+        
+        //Create a context of the appropriate size
+        UIGraphicsBeginImageContext(CGSizeMake(1.f, 10.f));
+        currentContext = UIGraphicsGetCurrentContext();
+        //Set the fill color
+        CGContextSetFillColorWithColor(currentContext, self.maximumTrackColor.CGColor);
+        //Fill the color
+        CGContextFillRect(currentContext, fillRect);
+        //Snap the picture and close the context
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        [self.slider setMaximumTrackImage:image forState:UIControlStateNormal];
+     }
     
     [self.slider setThumbImage:[UIImage imageNamed:@"NGVolumeControl.bundle/ScrubberKnob"] forState:UIControlStateNormal];
 }
